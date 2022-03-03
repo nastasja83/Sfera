@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'last_name', 'first_name', 'middle_name', 'email', 'password', 'is_admin', 'phone',
     ];
 
     /**
@@ -36,4 +36,28 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+        /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function skills()
+    {
+        return $this->belongsToMany('App\Skill', 'skill_user', 'user_id', 'skill_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function position()
+    {
+        return $this->belongsTo('App\Position', 'position_id');
+    }
 }

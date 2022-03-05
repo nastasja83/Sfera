@@ -24,21 +24,41 @@ class UserController extends Controller
                     ->editColumn('created_at', function ($user) {
                         return $user->created_at ? with(new Carbon($user->created_at))->format('d-m-Y') : '';
                     })
+                    ->editColumn('skills', function ($user) {
+                        return $user->skills
+                            ->pluck('skill_name')
+                            ->implode(', ');
+                    })
+                    ->editColumn('position_name', function ($user) {
+                        $position = $user->position;
+                        return $position->position_name;
+                    })
                     ->addColumn('action', function($row){
-
-                        $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">Edit</a>';
-
-                        return $btn;
+                        $html = '<a href="#" class="btn btn-sm btn-secondary">Edit</a> ';
+                        $html .= '<button data-rowid="'.$row->id.'" class="btn btn-sm btn-danger">Delete</button>';
+                        return $html;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
         }
+        $users = User::all();
+        $position_names = $users->map(function ($user) {
+            return $user->position->position_name;
+        })
+        ->unique()
+        ->sort()
+        ->all();
 
-        return view('users');
+        $skill_names = $users->map(function ($user) {
+            return $user->skills->pluck('skill_name');
+        })
+        ->flatten()
+        ->unique()
+        ->sort()
+        ->all();
+
+        return view('users', compact('position_names', 'skill_names'));
     }
-
-
-
 
     /**
      * Store a newly created resource in storage.

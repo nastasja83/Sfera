@@ -10,6 +10,11 @@ use Carbon\Carbon;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +24,7 @@ class UserController extends Controller
     {
         if ($request->ajax()) {
             $data = User::latest()->get();
-            return Datatables::of($data)
+            return DataTables::of($data)
                     ->addIndexColumn()
                     ->editColumn('created_at', function ($user) {
                         return $user->created_at ? with(new Carbon($user->created_at))->format('d-m-Y') : '';
@@ -31,19 +36,25 @@ class UserController extends Controller
                     })
                     ->editColumn('position_name', function ($user) {
                         $position = $user->position;
-                        return $position->position_name;
+                        return $position->position_name ?? "";
                     })
-                    ->addColumn('action', function($row){
-                        $html = '<a href="#" class="btn btn-sm btn-secondary">Edit</a> ';
-                        $html .= '<button data-rowid="'.$row->id.'" class="btn btn-sm btn-danger">Delete</button>';
-                        return $html;
+                    ->addColumn('online', function($user) {
+                        if ($user->isOnline()) {
+                            return '<i class="bi bi-check-circle-fill text-success"></i>';
+                        }
+                        return '<i class="bi bi-check-circle"></i>';
                     })
-                    ->rawColumns(['action'])
+
+                    ->addColumn('action', function($user) {
+                        return '<a href="#" class="btn btn-success btn-sm">Edit</a><br>
+                        <a href="#" class="btn btn-info btn-sm">View</a>';
+                    })
+                    ->rawColumns(['action', 'online'])
                     ->make(true);
         }
         $users = User::all();
         $position_names = $users->map(function ($user) {
-            return $user->position->position_name;
+            return $user->position->position_name ?? "";
         })
         ->unique()
         ->sort()

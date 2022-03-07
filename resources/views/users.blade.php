@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -52,7 +53,8 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Creating_date</th>
-                <th width="100px">Action</th>
+                <th>Online</th>
+                <th width="150" class="text-center">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -68,6 +70,7 @@
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
+
         ajax: "{{ route('users.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -79,7 +82,8 @@
             {data: 'email', name: 'email'},
             {data: 'phone', name: 'phone'},
             {data: 'created_at', name: 'created_at'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+            {data: 'online', name: 'online', sClass:'text-center'},
+            {data: 'action', name: 'action', orderable: false, searchable: false, sClass:'text-center'},
         ]
     });
     $('.filter-select').change(function() {
@@ -89,6 +93,5 @@
     });
 
 })
-
 </script>
 </html>

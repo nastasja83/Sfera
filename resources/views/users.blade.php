@@ -17,7 +17,7 @@
 
 <div class="container">
     <h1>Employees</h1>
-    <div class="container">
+    <div>
         <div class="table">
             <tr>
                 <td>
@@ -44,17 +44,17 @@
     <table class="table table-bordered data-table table-responsive table-hover">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Last name</th>
-                <th>First name</th>
-                <th>Middle name</th>
-                <th>Position</th>
-                <th>Skills</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Creating_date</th>
-                <th>Online</th>
-                <th width="150" class="text-center">Action</th>
+                <th scope="col">No</th>
+                <th scope="col">Last name</th>
+                <th scope="col">First name</th>
+                <th scope="col">Middle name</th>
+                <th scope="col">Position</th>
+                <th scope="col">Skills</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Creating date</th>
+                <th scope="col">Online</th>
+                <th scope="col" width="150" class="text-center text-nowrap">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -83,7 +83,7 @@
             {data: 'phone', name: 'phone'},
             {data: 'created_at', name: 'created_at'},
             {data: 'online', name: 'online', sClass:'text-center'},
-            {data: 'action', name: 'action', orderable: false, searchable: false, sClass:'text-center'},
+            {data: 'action', name: 'action', orderable: false, searchable: false, sClass:'text-center text-nowrap'},
         ]
     });
     $('.filter-select').change(function() {

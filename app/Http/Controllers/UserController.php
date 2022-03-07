@@ -30,9 +30,13 @@ class UserController extends Controller
                         return $user->created_at ? with(new Carbon($user->created_at))->format('d-m-Y') : '';
                     })
                     ->editColumn('skills', function ($user) {
-                        return $user->skills
+                        $skill_names = $user->skills
                             ->pluck('skill_name')
-                            ->implode(', ');
+                            ->map(function ($skill_name) {
+                                return "<li>{$skill_name}</li>";
+                            })
+                            ->implode('');
+                        return "<ul>{$skill_names}</ul>";
                     })
                     ->editColumn('position_name', function ($user) {
                         $position = $user->position;
@@ -40,16 +44,17 @@ class UserController extends Controller
                     })
                     ->addColumn('online', function($user) {
                         if ($user->isOnline()) {
-                            return '<i class="bi bi-check-circle-fill text-success"></i>';
+                            return '<i class="bi bi-check-circle-fill text-primary"></i>';
                         }
                         return '<i class="bi bi-check-circle"></i>';
                     })
 
                     ->addColumn('action', function($user) {
-                        return '<a href="#" class="btn btn-success btn-sm">Edit</a><br>
-                        <a href="#" class="btn btn-info btn-sm">View</a>';
+                        $editBtn = '<a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>';
+                        $deleteBtn = '<a href="#" class="btn btn-outline-danger btn-sm" role="button" aria-pressed="true">Delete</a>';
+                        return "{$editBtn} {$deleteBtn}";
                     })
-                    ->rawColumns(['action', 'online'])
+                    ->rawColumns(['action', 'online', 'skills'])
                     ->make(true);
         }
         $users = User::all();

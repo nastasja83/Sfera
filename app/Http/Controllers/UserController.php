@@ -10,10 +10,10 @@ use Carbon\Carbon;
 
 class UserController extends Controller
 {
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware('auth');
-    }
+    }*/
 
     /**
      * Display a listing of the resource.
@@ -52,7 +52,7 @@ class UserController extends Controller
                     ->addColumn('action', function($user) {
                         $editBtn = '<a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>';
                         $deleteBtn = '<a href="#" class="btn btn-outline-danger btn-sm" role="button" aria-pressed="true">Delete</a>';
-                        return "{$editBtn} {$deleteBtn}";
+                        return $user->isAdmin() ? "{$editBtn} {$deleteBtn}" : $editBtn;
                     })
                     ->rawColumns(['action', 'online', 'skills'])
                     ->make(true);

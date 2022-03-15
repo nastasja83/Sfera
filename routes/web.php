@@ -13,9 +13,10 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Auth::routes();
 
-Route::get('users', ['uses'=>'UserController@index', 'as'=>'users.index']);
-
+Route::resources([
+    'users' => UserController::class,
+]);

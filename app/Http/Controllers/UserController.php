@@ -73,7 +73,7 @@ class UserController extends Controller
         ->sort()
         ->all();
 
-        return view('users', compact('position_names', 'skill_names'));
+        return view('users.index', compact('position_names', 'skill_names'));
     }
 
     /**

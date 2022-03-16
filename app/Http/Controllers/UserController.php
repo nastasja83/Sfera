@@ -52,7 +52,7 @@ class UserController extends Controller
                         $deleteBtn = '<a href="users/'.$user->id.'/delete" class="btn btn-outline-danger btn-sm" role="button" aria-pressed="true">Delete</a>';
                         if (Auth::user()->isAdmin()) {
                             return "{$editBtn} {$deleteBtn}";
-                        } elseif (Auth::user() === $user) {
+                        } elseif (Auth::user()->id === $user->id) {
                             return $editBtn;
                         }
                     })

@@ -50,7 +50,11 @@ class UserController extends Controller
                     ->addColumn('action', function($user) {
                         $editBtn = '<a href="users/'.$user->id.'/edit" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>';
                         $deleteBtn = '<a href="users/'.$user->id.'/delete" class="btn btn-outline-danger btn-sm" role="button" aria-pressed="true">Delete</a>';
-                        return Auth::user()->isAdmin() ? "{$editBtn} {$deleteBtn}" : $editBtn;
+                        if (Auth::user()->isAdmin()) {
+                            return "{$editBtn} {$deleteBtn}";
+                        } elseif (Auth::user() === $user) {
+                            return $editBtn;
+                        }
                     })
                     ->rawColumns(['action', 'online', 'skills'])
                     ->make(true);

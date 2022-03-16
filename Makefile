@@ -17,7 +17,7 @@ console:
 log:
 	tail -f storage/logs/laravel.log
 test:
-	php artisan test
+	php vendor/bin/phpunit
 deploy:
 	git push heroku
 lint:

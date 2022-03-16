@@ -3,18 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Position;
+use App\Skill;
 use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
 {
-    /*public function __construct()
-    {
-        $this->middleware('auth');
-    }*/
-
     /**
      * Display a listing of the resource.
      *
@@ -50,9 +48,9 @@ class UserController extends Controller
                     })
 
                     ->addColumn('action', function($user) {
-                        $editBtn = '<a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>';
-                        $deleteBtn = '<a href="#" class="btn btn-outline-danger btn-sm" role="button" aria-pressed="true">Delete</a>';
-                        return $user->isAdmin() ? "{$editBtn} {$deleteBtn}" : $editBtn;
+                        $editBtn = '<a href="users/'.$user->id.'/edit" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>';
+                        $deleteBtn = '<a href="users/'.$user->id.'/delete" class="btn btn-outline-danger btn-sm" role="button" aria-pressed="true">Delete</a>';
+                        return Auth::user()->isAdmin() ? "{$editBtn} {$deleteBtn}" : $editBtn;
                     })
                     ->rawColumns(['action', 'online', 'skills'])
                     ->make(true);
@@ -77,28 +75,6 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\User  $user
@@ -106,7 +82,10 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $skills = Skill::pluck('skill_name', 'id')->sort()->all();
+        $positions = Position::pluck('position_name', 'id')->sort()->all();
+        $admin = $user->isAdmin();
+        return view('users.edit', compact('user', 'skills', 'positions', 'admin'));
     }
 
     /**
@@ -118,7 +97,28 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = $request->validate([
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'middle_name' => 'required|max:255',
+            'position_id' => 'nullable|integer',
+            'skills' => 'nullable|array|max:5',
+            'is_admin' => 'boolean|nullable',
+            'phone' => 'required|regex:/^((\+79)[0-9]{9})?$/|size:12|unique:users,phone' . $user->id,
+            'email' => 'required|email|max:255|unique:users,email' . $user->id,
+        ], $messages = [
+            'unique' => __('validation.The task name has already been taken'),
+        ]);
+
+        $user->fill($data);
+        $user->save();
+
+        $skills = collect($request->input('skills'))->filter(function ($skill) {
+           return isset($skill);
+        });
+        $user->skills()->sync($skills);
+        //flash(__('tasks.Task has been updated successfully'))->success();
+        return redirect()->route('users.index');
     }
 
     /**
@@ -129,6 +129,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->skills()->detach();
+        $user->delete();
+
+        //flash(__('users.User has been deleted successfully'))->success();
+        return redirect()->route('users.index');
     }
 }

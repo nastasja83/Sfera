@@ -7,17 +7,15 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-param" content="_token" />
 
     <title>Сфера - сайт для поиска постоянной работы и подработки. Прямые работодатели</title>
 
     <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
-    <!--<script src="{{ asset('js/app.js') }}"></script>-->
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -54,7 +52,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Users</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Employees</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Positions</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Skills</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Statistic</a></li>
                     </ul>
 

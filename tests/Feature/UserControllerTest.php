@@ -35,9 +35,15 @@ class UserControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $task = factory(User::class)->create();
+        $admin = factory(User::class)->make([
+            'is_admin' => true,
+        ]);
         $response = $this->actingAs($this->user)
-            ->get(route('users.edit', ['user' => $task]));
+            ->get(route('users.edit', ['user' => $this->user]));
+        $response->assertOk();
+
+        $response = $this->actingAs($admin)
+            ->get(route('users.edit', ['user' => $this->user]));
         $response->assertOk();
     }
 
@@ -51,10 +57,9 @@ class UserControllerTest extends TestCase
         $currentUser = factory(User::class)->create();
         $updatedUser = factory(User::class)
             ->make()
-            ->only(['last_name','first_name', 'middle_name', 'position_id', 'email', 'phone']);
-
+            ->only(['last_name', 'first_name', 'middle_name', 'position_id', 'email', 'phone']);
         $response = $this->actingAs($this->user)
-            ->patch(route('users.update', ['users' => $currentUser]), $updatedUser);
+            ->patch(route('users.update', ['user' => $currentUser]), $updatedUser);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('users.index'));
 
@@ -69,13 +74,15 @@ class UserControllerTest extends TestCase
      */
     public function testDestroy(): void
     {
-        $user = factory(User::class)->create();
+        $admin = factory(User::class)->make([
+            'is_admin' => true,
+        ]);
 
-        $response = $this->actingAs($this->user)
-            ->delete(route('users.destroy', ['user' => $user]));
+        $response = $this->actingAs($admin)
+            ->delete(route('users.destroy', ['user' => $this->user]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('users.index'));
 
-        $this->assertDatabaseMissing('users', ['id' => $user->id]);
+        $this->assertDatabaseMissing('users', ['id' => $this->user->id]);
     }
 }

@@ -26,9 +26,10 @@ $factory->define(User::class, function (Faker $faker) {
         'middle_name' => $faker->firstName,
         'position_id' => $position->id,
         'email' => $faker->unique()->safeEmail,
+        'is_admin' => false,
         'phone' => $faker->unique()->regexify('/^(\+79)[0-9]{9}$/'),
         'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'password' => bcrypt(Str::random(10)),
         'remember_token' => Str::random(10),
     ];
 });

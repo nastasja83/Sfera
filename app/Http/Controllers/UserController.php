@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -48,8 +52,8 @@ class UserController extends Controller
                     })
 
                     ->addColumn('action', function($user) {
-                        $editBtn = '<a href="users/'.$user->id.'/edit" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>';
-                        $deleteBtn = '<a href="users/'.$user->id.'/delete" class="btn btn-outline-danger btn-sm" role="button" aria-pressed="true">Delete</a>';
+                        $editBtn = '<a href="'.route('users.edit', $user->id).'" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>';
+                        $deleteBtn = '<a href="'.route('users.destroy', $user->id).'" class="btn btn-outline-danger btn-sm" data-method="delete" rel="nofollow" data-confirm="Are you sure?" aria-pressed="true">Delete</a>';
                         if (Auth::check()) {
                             if (Auth::user()->isAdmin()) {
                                 return "{$editBtn} {$deleteBtn}";
@@ -138,7 +142,7 @@ class UserController extends Controller
         $user->skills()->detach();
         $user->delete();
 
-        //flash(__('users.User has been deleted successfully'))->success();
+        flash(__('users.User has been deleted successfully'))->success();
         return redirect()->route('users.index');
     }
 }

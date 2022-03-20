@@ -6,3 +6,23 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+#jobBanner {
+    background-color: #656e7b;
+    background-image: url(https://sfera-rabota.ru/images/hero/find_job.jpeg);
+    background-position-x: 75%;
+    background-size: cover;
+}
+#jobBannerFilter {
+    padding-bottom: 7.5rem;
+    padding-top: 10rem;
+}
+.btn-primary {
+    background-color: #2b3bb6;
+    border-color: #2b3bb6;
+    color: #fff;
+}
+.dataTable > thead > tr > th[class*="sort"]:before,
+.dataTable > thead > tr > th[class*="sort"]:after {
+    content: "" !important;
+}

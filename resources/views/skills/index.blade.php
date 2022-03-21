@@ -62,7 +62,7 @@
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        order: [1, 'asc'],
+        order: [2, 'asc'],
         pageLength: 10,
             lengthMenu: [
                 [5, 10, 15, 20, 30],

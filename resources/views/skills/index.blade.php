@@ -7,7 +7,7 @@
         <div class="col-10">
             <h1 class="mb-3 mt-3">Skills</h1>
             <div class="mb-3 mt-3">
-            @if(Auth::user()->isAdmin())
+            @if(Auth::check() && Auth::user()->isAdmin())
             <a href="{{ route('skills.create') }}" class="btn btn-primary ml-auto">{{ __('skills.Create Skill') }}</a>
             @endif
             </div>

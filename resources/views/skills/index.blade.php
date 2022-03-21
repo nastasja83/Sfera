@@ -70,7 +70,7 @@
             ],
         ajax: "{{ route('skills.index') }}",
         columns: [
-            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false,},
             {data: 'skill_name', name: 'skill_name'},
             {data: 'created_at', name: 'created_at', visible: logined},
             {data: 'action', name: 'action', orderable: false, searchable: false, sClass:'text-center text-nowrap', visible: logined},

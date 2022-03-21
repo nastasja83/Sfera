@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Skill::class, function (Faker $faker) {
     return [
-        'skill_name' => $faker->word,
+        'skill_name' => $faker->unique()->word,
     ];
 });

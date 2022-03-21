@@ -26,8 +26,7 @@ class SkillController extends Controller
             return DataTables::eloquent($data)
                     ->addIndexColumn()
                     ->editColumn('skill_name', function ($skill) {
-                        $skill_name = $skill->skill_name;
-                        return view('skills.edit', compact('skill', 'skill_name'))->render();
+                        return view('skills.edit', compact('skill'))->render();
                     })
                     ->orderColumn('skill_name', function ($query, $order) {
                         $query->orderBy('skill_name', $order);
@@ -37,10 +36,8 @@ class SkillController extends Controller
                         return $skill->created_at ? with(new Carbon($skill->created_at))->format('d-m-Y') : '';
                     })
                     ->addColumn('action', function($skill) {
-                        $updateBtn = '<a href="'.route('skills.edit', $skill->id).'" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Update</a>';
-                        $deleteBtn = '<a href="'.route('skills.destroy', $skill->id).'" class="btn btn-outline-danger btn-sm" data-method="delete" rel="nofollow" data-confirm="Are you sure?" aria-pressed="true">Delete</a>';
                             if (Auth::check() && Auth::user()->isAdmin()) {
-                                return "{$updateBtn} {$deleteBtn}";
+                                return view('skills.action_buttons', compact('skill'))->render();
                             }
                     })
                     ->rawColumns(['action', 'skill_name'])
@@ -57,7 +54,8 @@ class SkillController extends Controller
      */
     public function create()
     {
-        //
+        $skill = new Skill();
+        return view('skills.create', compact('skill'));
     }
 
     /**
@@ -68,18 +66,20 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $skillInputData = $this->validate($request, [
+            'skill_name' => 'required|max:255|unique:skills',
+        ], $messages = [
+            'unique' => __('validation.The skill name has already been taken'),
+            'max' => __('validation.The name should be no more than :max characters'),
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Skill  $skill
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Skill $skill)
-    {
-        //
+        $label = new Skill();
+        $label->fill($skillInputData);
+        $label->save();
+
+        flash(__('skills.Skill has been added successfully'))->success();
+        return redirect()
+            ->route('skills.index');
     }
 
     /**
@@ -90,7 +90,7 @@ class SkillController extends Controller
      */
     public function edit(Skill $skill)
     {
-        //
+        return view('skills.edit', compact('skill'));
     }
 
     /**
@@ -102,7 +102,19 @@ class SkillController extends Controller
      */
     public function update(Request $request, Skill $skill)
     {
-        //
+        $skillInputData = $this->validate($request, [
+            'skill_name' => 'required|max:255|unique:skills,name,' . $skill->id,
+        ], $messages = [
+            'unique' => __('validation.The skill name has already been taken'),
+            'max' => __('validation.The name should be no more than :max characters'),
+        ]);
+
+        $skill->fill($skillInputData);
+        $skill->save();
+
+        //flash(__('skills.Skill has been updated successfully'))->success();
+        return redirect()
+            ->route('skills.index');
     }
 
     /**
@@ -113,6 +125,13 @@ class SkillController extends Controller
      */
     public function destroy(Skill $skill)
     {
-        //
+        if ($skill->users()->exists()) {
+            flash(__('skills.Failed to delete skill'))->error();
+            return back();
+        }
+
+        $skill->delete();
+        //flash(__('skills.Skill has been deleted successfully'))->success();
+        return redirect()->route('skills.index');
     }
 }

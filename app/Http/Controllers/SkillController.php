@@ -22,12 +22,17 @@ class SkillController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Skill::select(['skill_name', 'id', 'created_at'])->get();
-            return DataTables::of($data)
+            $data = Skill::query();
+            return DataTables::eloquent($data)
                     ->addIndexColumn()
                     ->editColumn('skill_name', function ($skill) {
-                        return view('skills.edit', compact('skill'))->render();
+                        $skill_name = $skill->skill_name;
+                        return view('skills.edit', compact('skill', 'skill_name'))->render();
                     })
+                    ->orderColumn('skill_name', function ($query, $order) {
+                        $query->orderBy('skill_name', $order);
+                    })
+
                     ->editColumn('created_at', function ($skill) {
                         return $skill->created_at ? with(new Carbon($skill->created_at))->format('d-m-Y') : '';
                     })

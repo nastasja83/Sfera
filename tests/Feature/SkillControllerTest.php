@@ -5,9 +5,12 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Skill;
 use App\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SkillControllerTest extends TestCase
 {
+    use DatabaseTransactions;
+
     private $admin;
 
     protected function setUp(): void
@@ -85,7 +88,6 @@ class SkillControllerTest extends TestCase
         $skillInputData = factory(Skill::class)
         ->make()
         ->only(['skill_name']);
-
         $response = $this->actingAs($this->admin)
             ->patch(route('skills.update', ['skill' => $skill]), $skillInputData);
         $response->assertSessionHasNoErrors();

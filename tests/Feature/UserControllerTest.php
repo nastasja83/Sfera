@@ -4,9 +4,12 @@ namespace Tests\Feature;
 
 use App\User;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserControllerTest extends TestCase
 {
+    use DatabaseTransactions;
+
     private $user;
 
     protected function setUp(): void

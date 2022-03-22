@@ -44,24 +44,24 @@ class PositionControllerTest extends TestCase
         $response->assertOk();
     }
 
-    // /**
-    //  * Test of positions store.
-    //  *
-    //  * @return void
-    //  */
-    // public function testStore(): void
-    // {
-    //     $positionInputData = factory(Position::class)
-    //     ->make()
-    //     ->only(['position_name']);
+    /**
+     * Test of positions store.
+     *
+     * @return void
+     */
+    public function testStore(): void
+    {
+        $positionInputData = factory(Position::class)
+        ->make()
+        ->only(['position_name']);
 
-    //     $response = $this->actingAs($this->admin)
-    //         ->post(route('positions.store', $positionInputData));
-    //     $response->assertSessionHasNoErrors();
-    //     $response->assertRedirect(route('positions.index'));
-    //     $this->get(route('positions.index'))->assertSee($positionInputData['position_name']);
-    //     $this->assertDatabaseHas('positions', $positionInputData);
-    // }
+        $response = $this->actingAs($this->admin)
+            ->post(route('positions.store', $positionInputData));
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect(route('positions.index'));
+        $this->get(route('positions.index'))->assertSee($positionInputData['position_name']);
+        $this->assertDatabaseHas('positions', $positionInputData);
+    }
 
     /**
      * Test of positions update.

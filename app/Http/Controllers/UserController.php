@@ -65,18 +65,18 @@ class UserController extends Controller
                     ->rawColumns(['action', 'online', 'skills'])
                     ->make(true);
         }
-        $users = User::all();
-        $position_names = $users->map(function ($user) {
-            return $user->position->position_name ?? "";
+        $positions = Position::all();
+        $position_names = $positions->map(function ($position) {
+            return $position->position_name ?? "";
         })
         ->unique()
         ->sort()
         ->all();
 
-        $skill_names = $users->map(function ($user) {
-            return $user->skills->pluck('skill_name');
+        $skills = Skill::all();
+        $skill_names = $skills->map(function ($skill) {
+            return $skill->skill_name ?? "";
         })
-        ->flatten()
         ->unique()
         ->sort()
         ->all();

@@ -73,9 +73,9 @@ class SkillController extends Controller
             'max' => __('validation.The name should be no more than :max characters'),
         ]);
 
-        $label = new Skill();
-        $label->fill($skillInputData);
-        $label->save();
+        $skill = new Skill();
+        $skill->fill($skillInputData);
+        $skill->save();
 
         flash(__('skills.Skill has been added successfully'))->success();
         return redirect()

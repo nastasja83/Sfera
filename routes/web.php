@@ -20,4 +20,5 @@ Auth::routes();
 Route::resources([
     'users' => UserController::class,
     'skills' => SkillController::class,
+    'positions' => PositionController::class,
 ]);

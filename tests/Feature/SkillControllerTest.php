@@ -48,14 +48,6 @@ class SkillControllerTest extends TestCase
      *
      * @return void
      */
-    public function testEdit(): void
-    {
-        $skill = factory(Skill::class)->create();
-
-        $response = $this->actingAs($this->admin)
-            ->get(route('skills.edit', ['skill' => $skill]));
-        $response->assertOk();
-    }
 
     /**
      * Test of skills store.

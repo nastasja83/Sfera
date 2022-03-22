@@ -66,18 +66,20 @@ class PositionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $positionInputData = $this->validate($request, [
+            'position_name' => 'required|max:255|unique:positions',
+        ], $messages = [
+            'unique' => __('validation.The position name has already been taken'),
+            'max' => __('validation.The name should be no more than :max characters'),
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Position $position)
-    {
-        //
+        $position = new Position();
+        $position->fill($positionInputData);
+        $position->save();
+
+        flash(__('positions.Position has been added successfully'))->success();
+        return redirect()
+            ->route('positions.index');
     }
 
     /**
@@ -113,7 +115,7 @@ class PositionController extends Controller
     public function destroy(Position $position)
     {
         if ($position->users()->exists()) {
-            flash(__('skills.Failed to delete position'))->error();
+            flash(__('positions.Failed to delete position'))->error();
             return back();
         }
 

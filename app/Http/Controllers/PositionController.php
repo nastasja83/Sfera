@@ -54,7 +54,8 @@ class PositionController extends Controller
      */
     public function create()
     {
-        //
+        $position = new Position();
+        return view('positions.create', compact('position'));
     }
 
     /**

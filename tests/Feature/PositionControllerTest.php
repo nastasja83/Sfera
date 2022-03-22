@@ -31,17 +31,18 @@ class PositionControllerTest extends TestCase
         $response = $this->get(route('positions.index'));
         $response->assertOk();
     }
-    //     /**
-    //  * Test of positions create.
-    //  *
-    //  * @return void
-    //  */
-    // public function testCreate(): void
-    // {
-    //     $response = $this->actingAs($this->admin)
-    //         ->get(route('positions.create'));
-    //     $response->assertOk();
-    // }
+
+    /**
+     * Test of positions create.
+     *
+     * @return void
+     */
+    public function testCreate(): void
+    {
+        $response = $this->actingAs($this->admin)
+            ->get(route('positions.create'));
+        $response->assertOk();
+    }
 
     // /**
     //  * Test of positions store.

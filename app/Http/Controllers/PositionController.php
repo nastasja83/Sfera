@@ -80,17 +80,6 @@ class PositionController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Position  $position
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Position $position)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -99,7 +88,19 @@ class PositionController extends Controller
      */
     public function update(Request $request, Position $position)
     {
-        //
+        $positionInputData = $this->validate($request, [
+            'position_name' => 'required|max:255|unique:positions,name,' . $position->id,
+        ], $messages = [
+            'unique' => __('validation.The position name has already been taken'),
+            'max' => __('validation.The name should be no more than :max characters'),
+        ]);
+
+        $position->fill($positionInputData);
+        $position->save();
+
+        flash(__('positionss.Position has been updated successfully'))->success();
+        return redirect()
+            ->route('positions.index');
     }
 
     /**
@@ -110,6 +111,13 @@ class PositionController extends Controller
      */
     public function destroy(Position $position)
     {
-        //
+        if ($position->users()->exists()) {
+            flash(__('skills.Failed to delete position'))->error();
+            return back();
+        }
+
+        $position->delete();
+        flash(__('positions.Position has been deleted successfully'))->success();
+        return redirect()->route('positions.index');
     }
 }

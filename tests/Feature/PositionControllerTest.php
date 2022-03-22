@@ -62,39 +62,39 @@ class PositionControllerTest extends TestCase
     //     $this->assertDatabaseHas('positions', $positionInputData);
     // }
 
-    // /**
-    //  * Test of positions update.
-    //  *
-    //  * @return void
-    //  */
-    // public function testUpdate(): void
-    // {
-    //     $position = factory(Position::class)->create();
+    /**
+     * Test of positions update.
+     *
+     * @return void
+     */
+    public function testUpdate(): void
+    {
+        $position = factory(Position::class)->create();
 
-    //     $positionInputData = factory(Position::class)
-    //     ->make()
-    //     ->only(['position_name']);
-    //     $response = $this->actingAs($this->admin)
-    //         ->patch(route('positions.update', ['position' => $position]), $positionInputData);
-    //     $response->assertSessionHasNoErrors();
-    //     $response->assertRedirect(route('positions.index'));
-    //     $this->get(route('positions.index'))->assertSee($positionInputData['position_name']);
-    //     $this->assertDatabaseHas('positions', $positionInputData);
-    // }
+        $positionInputData = factory(Position::class)
+        ->make()
+        ->only(['position_name']);
+        $response = $this->actingAs($this->admin)
+            ->patch(route('positions.update', ['position' => $position]), $positionInputData);
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect(route('positions.index'));
+        $this->get(route('positions.index'))->assertSee($positionInputData['position_name']);
+        $this->assertDatabaseHas('positions', $positionInputData);
+    }
 
-    // /**
-    //  * Test of positions delete.
-    //  *
-    //  * @return void
-    //  */
-    // public function testDestroy(): void
-    // {
-    //     $position = factory(Position::class)->create();
-    //     $response = $this->actingAs($this->admin)
-    //         ->delete(route('positions.destroy', ['position' => $position]));
-    //     $response->assertSessionHasNoErrors();
-    //     $response->assertRedirect(route('positions.index'));
-    //     $this->assertDatabaseMissing('positions', ['id' => $position->id]);
-    // }
+    /**
+     * Test of positions delete.
+     *
+     * @return void
+     */
+    public function testDestroy(): void
+    {
+        $position = factory(Position::class)->create();
+        $response = $this->actingAs($this->admin)
+            ->delete(route('positions.destroy', ['position' => $position]));
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect(route('positions.index'));
+        $this->assertDatabaseMissing('positions', ['id' => $position->id]);
+    }
 
 }

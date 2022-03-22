@@ -44,12 +44,6 @@ class SkillControllerTest extends TestCase
     }
 
     /**
-     * Test of skills edit.
-     *
-     * @return void
-     */
-
-    /**
      * Test of skills store.
      *
      * @return void

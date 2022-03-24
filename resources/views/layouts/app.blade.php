@@ -55,7 +55,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Employees</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('positions.index') }}">Positions</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('skills.index') }}">Skills</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Statistic</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('statistic.index') }}">Statistic</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

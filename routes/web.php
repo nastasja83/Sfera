@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\StatisticController;
+
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
@@ -22,3 +24,6 @@ Route::resources([
     'skills' => SkillController::class,
     'positions' => PositionController::class,
 ]);
+
+Route::get('statistic', 'StatisticController@index')->name('statistic.index');
+Route::post('statistic', 'StatisticController@index')->name('statistic.update');

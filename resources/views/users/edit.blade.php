@@ -54,7 +54,7 @@
                 @if(Auth::user()->isAdmin())
                     <div class="form-group mb-3">
                         {{Form::label('position_id', __('users.Position'))}}
-                        {{Form::select('position_id', $positions, $user->position, ['class' => 'form-control'])}}
+                        {{Form::select('position_id', $positions, $user->position_id, ['class' => 'form-control'])}}
                         @if ($errors->has('position_id'))
                             @error('position_id')
                                 <div class="invalid-feedback d-block">{{ $message }}</div>

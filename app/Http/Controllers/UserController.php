@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Position;
 use App\Skill;
-use Illuminate\Http\Request;
 use DataTables;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\MessageOfChange;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 
 
 class UserController extends Controller
@@ -41,8 +44,7 @@ class UserController extends Controller
                         return "<ul>{$skill_names}</ul>";
                     })
                     ->editColumn('position_name', function ($user) {
-                        $position = $user->position;
-                        return $position->position_name ?? "";
+                        return $user->position->position_name ?? "";
                     })
                     ->addColumn('online', function($user) {
                         if ($user->isOnline()) {
@@ -118,7 +120,10 @@ class UserController extends Controller
             'email' => 'required|email|max:255|unique:users,email' . $user->id,
         ], $messages = [
             'unique' => __('validation.The task name has already been taken'),
+            'max' => __('validation.The task name has already been taken'),
         ]);
+
+        $userChange = collect($data)->diffAssoc($user)->only('position_id', 'is_admin');
 
         $user->fill($data);
         $user->save();
@@ -126,8 +131,21 @@ class UserController extends Controller
         $skills = collect($request->input('skills'))->filter(function ($skill) {
            return isset($skill);
         });
+
+        $userSkillsId = collect($user->skills)->map(function ($skill) {
+            return $skill->id;
+        });
+
+        $skillsChange = $userSkillsId === $skills ? [] : $skills;
+
         $user->skills()->sync($skills);
-        //flash(__('tasks.Task has been updated successfully'))->success();
+        $user->load('skills');
+
+        flash(__('tasks.Task has been updated successfully'))->success();
+
+        if ($userChange->isNotEmpty() || $skillsChange->isNotEmpty()) {
+            Mail::to($user->email)->send(new MessageOfChange($user, $userChange, $skillsChange));
+        }
         return redirect()->route('users.index');
     }
 

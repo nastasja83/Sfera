@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class PositionController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->authorizeResource(Position::class, 'position');
-    // }
+    public function __construct()
+    {
+        $this->authorizeResource(Position::class, 'position');
+    }
     /**
      * Display a listing of the resource.
      *

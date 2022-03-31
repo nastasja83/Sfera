@@ -9,13 +9,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token" />
 
-    <title>Сфера - сайт для поиска постоянной работы и подработки. Прямые работодатели</title>
+    <title>{{ __('welcome.About Sfera')}}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+    <script src="{{ asset('chart.js/Chart.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,6 +30,8 @@
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 </head>
 <body class="py-30">
     <div id="app">
@@ -52,10 +57,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">Employees</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('positions.index') }}">Positions</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('skills.index') }}">Skills</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('statistic.index') }}">Statistic</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">{{ __('users.Employees') }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('positions.index') }}">{{ __('positions.Positions') }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('skills.index') }}">{{ __('skills.Skills') }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('statistic.index') }}">{{ __('statistic.Statistic') }}</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -63,11 +68,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('login.Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('register.Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -80,7 +85,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('login.Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

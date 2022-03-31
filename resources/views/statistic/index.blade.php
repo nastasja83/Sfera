@@ -1,20 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-<script src="{{ asset('chart.js/Chart.js') }}"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <div class="container-fluid">
     <div class="row justify-content-center mt-5 mb-5">
         <div class="col col-10">
-        <h1 class="mb-3">Statistic</h1>
+        <h1 class="mb-3">{{ __('statistic.Statistic') }}</h1>
             {!! Form::open(['route' => 'statistic.update', 'method' => 'POST', 'class' => 'form-inline mb-5']) !!}
             <div class="form-group">
                     {{ Form::label('Period', __('statistic.Period')) }}
                     {{Form::text('Period', $inputDates, ['class' => 'form-control mx-sm-3', 'name' => 'daterange'])}}
-                    {{Form::submit(__('statistic.Update'), ['class' => 'btn btn-light my-2'])}}
+                    {{Form::submit(__('buttons.Update'), ['class' => 'btn btn-light my-2'])}}
             </div>
 
             <div style="width:80%;">
@@ -35,7 +31,10 @@
         </div>
     </div>
 </div>
-<script>
+@endsection
+@push('scripts')
+
+<script type="text/javascript">
 $(function() {
     $('input[name="daterange"]').daterangepicker({
         opens: 'left',
@@ -55,4 +54,5 @@ $('input[name="daterange"]').data('daterangepicker').setStartDate(startDate);
 $('input[name="daterange"]').data('daterangepicker').setEndDate(endDate);
 
 </script>
-@endsection
+@endpush
+

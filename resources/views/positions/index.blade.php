@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-10">
-            <h1 class="mb-3 mt-3">Positions</h1>
+            <h1 class="mb-3 mt-3">{{ __('positions.Positions') }}</h1>
             <div class="mb-3 mt-3">
             @if(Auth::check() && Auth::user()->isAdmin())
             <a href="{{ route('positions.create') }}" class="btn btn-primary ml-auto">{{ __('positions.Create position') }}</a>
@@ -17,7 +17,7 @@
                         <div class="form-row">
                             <div class="col">
                                 <select data-column="1" class="form-control filter-select">
-                                    <option value="">Select positions</option>
+                                    <option value="">{{ __('positions.Select position') }}</option>
                                     @foreach ($positions as $position_name)
                                     <option value="{{ $position_name }}">{{ $position_name }}</option>
                                     @endforeach
@@ -34,9 +34,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Positions</th>
-                                    <th scope="col">Creating date</th>
-                                    <th scope="col" width="120" class="text-center text-nowrap">Actions</th>
+                                    <th scope="col">{{ __('positions.Positions') }}</th>
+                                    <th scope="col">{{ __('positions.Creating date') }}</th>
+                                    <th scope="col" width="120" class="text-center text-nowrap">{{ __('positions.Actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,6 +62,9 @@
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/ru.json'
+        },
         order: [2, 'asc'],
         pageLength: 10,
             lengthMenu: [

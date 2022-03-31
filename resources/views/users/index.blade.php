@@ -5,14 +5,14 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-10">
-            <h1 class="mb-3 mt-3">Employees</h1>
+            <h1 class="mb-3 mt-3">{{ __('users.Employees') }}</h1>
             <div class="row mb-3">
                 <div class="col col-4 align-self-start">
                     <form>
                         <div class="form-row">
                             <div class="col">
                                 <select data-column="4" class="form-control filter-select">
-                                    <option value="">Select position</option>
+                                    <option value="">{{ __('positions.Select position') }}</option>
                                     @foreach ($position_names as $position_name)
                                     <option value="{{ $position_name }}">{{ $position_name }}</option>
                                     @endforeach
@@ -20,7 +20,7 @@
                             </div>
                             <div class="col">
                                 <select data-column="5" class="form-control filter-select">
-                                    <option value="">Select skills</option>
+                                    <option value="">{{ __('skills.Select skill') }}</option>
                                     @foreach ($skill_names as $skill_name)
                                     <option value="{{ $skill_name }}">{{ $skill_name }}</option>
                                     @endforeach
@@ -37,16 +37,16 @@
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Last name</th>
-                                    <th scope="col">First name</th>
-                                    <th scope="col">Middle name</th>
-                                    <th scope="col">Position</th>
-                                    <th scope="col">Skills</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Phone</th>
-                                    <th scope="col">Creating date</th>
-                                    <th scope="col">Online</th>
-                                    <th scope="col" width="120" class="text-center text-nowrap">Actions</th>
+                                    <th scope="col">{{ __('users.Last name') }}</th>
+                                    <th scope="col">{{ __('users.First name') }}</th>
+                                    <th scope="col">{{ __('users.Middle name') }}</th>
+                                    <th scope="col">{{ __('positions.Position') }}</th>
+                                    <th scope="col">{{ __('skills.Skills') }}</th>
+                                    <th scope="col">{{ __('users.E-Mail Address') }}</th>
+                                    <th scope="col">{{ __('users.Phone') }}</th>
+                                    <th scope="col">{{ __('users.Creating date') }}</th>
+                                    <th scope="col">{{ __('users.Online') }}</th>
+                                    <th scope="col" width="120" class="text-center text-nowrap">{{ __('users.Actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,6 +72,9 @@
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/ru.json'
+        },
         order: [9, 'desc'],
         pageLength: 5,
             lengthMenu: [

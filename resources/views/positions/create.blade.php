@@ -17,9 +17,9 @@
                     @endif
                     </div>
                 </div>
-                    {{Form::submit(__('positions.Create'), ['class' => 'btn btn-primary mt-3'])}}
+                    {{Form::submit(__('buttons.Create'), ['class' => 'btn btn-primary mt-3'])}}
             {{ Form::close() }}
         </div>
     </div>
 </div>
-            @endsection('content')
+@endsection('content')

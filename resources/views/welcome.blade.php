@@ -7,13 +7,13 @@
             <div class="row">
                 <div class="col-md-8 col-12 text-white">
                     <h1 class="h1 text-lg-main ">
-                        Сфера - современный сервис для поиска работы и персонала
+                    {{ __('welcome.Sfera service') }}
                     </h1>
                     <div class="pr-md-2 mb-5">
-                        Широкие возможности. Простой функционал
+                    {{ __('welcome.Ample opportunities. Simple functionality') }}
                     </div>
                         <a href="{{ route('users.index') }}" class="btn btn-lg btn-primary">
-                            Список сотрудников
+                        {{ __('welcome.List of employees') }}
                         </a>
                 </div>
             </div>
@@ -28,16 +28,16 @@
             </div>
             <div class="col-lg-6 col-12 pl-lg-7">
                 <h2 class="pr-md-7">
-                Данные сотрудников
+                    {{ __('welcome.Employee data') }}
                 </h2>
                 <div class="text-muted mb-3">
-                    ФИО, должность, навыки, статистика: график регистраций, количество сотрудников по должностям и навыкам.
+                    {{ __('welcome.About service') }}
                 </div>
                 <a href="{{ route('users.index') }}" class="btn btn-lg btn-primary">
-                    Сотрудники
+                    {{ __('users.Employees') }}
                 </a>
-                <a href="{{ route('users.index') }}" class="btn btn-lg btn-primary">
-                    Статистика
+                <a href="{{ route('statistic.index') }}" class="btn btn-lg btn-primary">
+                    {{ __('statistic.Statistic') }}
                 </a>
             </div>
         </div>

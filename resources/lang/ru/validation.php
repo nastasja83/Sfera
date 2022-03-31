@@ -146,5 +146,11 @@ return [
     */
 
     'attributes' => [],
+    'The password must not be greater than :max characters.' => 'Пароль должен иметь длину не более :max символов',
+    'The password must be at least :min characters.' => 'Пароль должен иметь длину не менее :min символов',
+    'The password and confirmation do not match.' => 'Пароль и подтверждение не совпадают',
+    'The skill name has already been taken' => 'Навык с таким названием уже существует',
+    'The position name has already been taken' => 'Должность с таким названием уже существует',
+    'The name should be no more than :max characters' => 'Название должно быть не более :max символов'
 
 ];

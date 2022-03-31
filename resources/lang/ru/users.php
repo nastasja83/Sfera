@@ -22,5 +22,7 @@ return [
     'Creating date' => 'Дата создания',
     'Actions' => 'Действия',
     'Online' => 'Онлайн',
+    'User has been updated successfully' => 'Данные пользователя успешно обновлены',
+    'User has been deleted successfully' => 'Пользователь успешно удален'
 
 ];

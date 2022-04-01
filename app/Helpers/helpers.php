@@ -1,8 +1,6 @@
 <?php
 
-use App\User;
 use App\Helpers\ChartHelper;
-use Illuminate\Support\Collection;
 
 if (!function_exists('getBeginEndDates')) {
     function getBeginEndDates(string $inputDates = null): array

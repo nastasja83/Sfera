@@ -101,7 +101,7 @@ class SkillController extends Controller
         $skill->fill($skillInputData);
         $skill->save();
 
-        //flash(__('skills.Skill has been updated successfully'))->success();
+        flash(__('skills.Skill has been updated successfully'))->success();
         return redirect()
             ->route('skills.index');
     }
@@ -120,7 +120,7 @@ class SkillController extends Controller
         }
 
         $skill->delete();
-        //flash(__('skills.Skill has been deleted successfully'))->success();
+        flash(__('skills.Skill has been deleted successfully'))->success();
         return redirect()->route('skills.index');
     }
 }

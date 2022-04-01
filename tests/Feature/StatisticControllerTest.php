@@ -15,5 +15,6 @@ class StatisticControllerTest extends TestCase
     {
         $response = $this->get(route('statistic.index'));
         $response->assertOk();
+        $response->assertSee('Статистика');
     }
 }

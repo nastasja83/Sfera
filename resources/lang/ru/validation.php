@@ -151,6 +151,7 @@ return [
     'The password and confirmation do not match.' => 'Пароль и подтверждение не совпадают',
     'The skill name has already been taken' => 'Навык с таким названием уже существует',
     'The position name has already been taken' => 'Должность с таким названием уже существует',
-    'The name should be no more than :max characters' => 'Название должно быть не более :max символов'
+    'The name should be no more than :max characters' => 'Название должно быть не более :max символов',
+    'The phone should contain 12 characters and begin with +7' => 'Телефон должен содержать 12 символов и начинаться с +7'
 
 ];

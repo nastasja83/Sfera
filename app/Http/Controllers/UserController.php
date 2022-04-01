@@ -54,15 +54,7 @@ class UserController extends Controller
                     })
 
                     ->addColumn('action', function($user) {
-                        $editBtn = '<a href="'.route('users.edit', $user->id).'" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>';
-                        $deleteBtn = '<a href="'.route('users.destroy', $user->id).'" class="btn btn-outline-danger btn-sm" data-method="delete" rel="nofollow" data-confirm="Are you sure?" aria-pressed="true">Delete</a>';
-                        if (Auth::check()) {
-                            if (Auth::user()->isAdmin()) {
-                                return "{$editBtn} {$deleteBtn}";
-                            } elseif (Auth::user()->id === $user->id) {
-                                return $editBtn;
-                            }
-                        }
+                        return view('users.action_buttons', compact('user'))->render();
                     })
                     ->rawColumns(['action', 'online', 'skills'])
                     ->make(true);
@@ -120,7 +112,8 @@ class UserController extends Controller
             'email' => 'required|email|max:255|unique:users,email' . $user->id,
         ], $messages = [
             'unique' => __('validation.The task name has already been taken'),
-            'max' => __('validation.The task name has already been taken'),
+            'max' => __('validation.The name should be no more than :max characters'),
+            'size' => __('validation.The phone should contain 12 characters and begin with +7'),
         ]);
 
         $userChange = collect($data)->diffAssoc($user)->only('position_id', 'is_admin');
@@ -141,7 +134,7 @@ class UserController extends Controller
         $user->skills()->sync($skills);
         $user->load('skills');
 
-        flash(__('tasks.Task has been updated successfully'))->success();
+        flash(__('users.User has been updated successfully'))->success();
 
         if ($userChange->isNotEmpty() || $skillsChange->isNotEmpty()) {
             Mail::to($user->email)->send(new MessageOfChange($user, $userChange, $skillsChange));

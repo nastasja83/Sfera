@@ -43,9 +43,9 @@ class StatisticController extends Controller
             return [$position->position_name => $position->users()->count()];
         });
 
-        $registrationChart = getBarChart($inputDates, 'Registration', $registrationCountInPeriod);
-        $skillsChart = getPieChart('Skills', $skillsByUsers);
-        $positionsChart = getPieChart('Positions', $positionsByUsers);
+        $registrationChart = getBarChart($inputDates, 'Регистрация', $registrationCountInPeriod);
+        $skillsChart = getPieChart('Навыки', $skillsByUsers);
+        $positionsChart = getPieChart('Должности', $positionsByUsers);
 
         return view('statistic.index', compact('registrationChart', 'inputDates', 'positionsChart', 'skillsChart'));
     }

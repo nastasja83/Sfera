@@ -55,6 +55,10 @@ class RegisterController extends Controller
             'phone' => ['required', 'regex:/^((\+79)[0-9]{9})?$/', 'size:12', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], $messages = [
+            'unique' => __('validation.The task name has already been taken'),
+            'max' => __('validation.The name should be no more than :max characters'),
+            'regex' => __('validation.The phone should contain 12 characters and begin with +7'),
         ]);
     }
 

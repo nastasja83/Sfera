@@ -97,5 +97,4 @@ class PositionControllerTest extends TestCase
         $response->assertRedirect(route('positions.index'));
         $this->assertDatabaseMissing('positions', ['id' => $position->id]);
     }
-
 }

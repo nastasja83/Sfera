@@ -19,7 +19,7 @@ class StatisticController extends Controller
 
         $usersCountByDate = User::whereBetween('created_at', [$beginDate, $endDate])
             ->get()
-            ->countBy(function($date) {
+            ->countBy(function ($date) {
                 return Carbon::parse($date->created_at)->format('d-m-Y');
             });
 

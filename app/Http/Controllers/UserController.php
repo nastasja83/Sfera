@@ -12,8 +12,6 @@ use App\Mail\MessageOfChange;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-
-
 class UserController extends Controller
 {
     public function __construct()
@@ -46,14 +44,14 @@ class UserController extends Controller
                     ->editColumn('position_name', function ($user) {
                         return $user->position->position_name ?? "";
                     })
-                    ->addColumn('online', function($user) {
+                    ->addColumn('online', function ($user) {
                         if ($user->isOnline()) {
                             return '<i class="bi bi-check-circle-fill text-primary"></i>';
                         }
                         return '<i class="bi bi-check-circle"></i>';
                     })
 
-                    ->addColumn('action', function($user) {
+                    ->addColumn('action', function ($user) {
                         return view('users.action_buttons', compact('user'))->render();
                     })
                     ->rawColumns(['action', 'online', 'skills'])
@@ -122,7 +120,7 @@ class UserController extends Controller
         $user->save();
 
         $skills = collect($request->input('skills'))->filter(function ($skill) {
-           return isset($skill);
+            return isset($skill);
         });
 
         $userSkillsId = collect($user->skills)->map(function ($skill) {

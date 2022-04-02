@@ -35,10 +35,10 @@ class SkillController extends Controller
                     ->editColumn('created_at', function ($skill) {
                         return $skill->created_at ? with(new Carbon($skill->created_at))->format('d-m-Y') : '';
                     })
-                    ->addColumn('action', function($skill) {
-                            if (Auth::check() && Auth::user()->isAdmin()) {
-                                return view('skills.action_buttons', compact('skill'))->render();
-                            }
+                    ->addColumn('action', function ($skill) {
+                        if (Auth::check() && Auth::user()->isAdmin()) {
+                            return view('skills.action_buttons', compact('skill'))->render();
+                        }
                     })
                     ->rawColumns(['action', 'skill_name'])
                     ->make(true);

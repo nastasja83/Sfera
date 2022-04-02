@@ -35,10 +35,10 @@ class PositionController extends Controller
                     ->editColumn('created_at', function ($position) {
                         return $position->created_at ? with(new Carbon($position->created_at))->format('d-m-Y') : '';
                     })
-                    ->addColumn('action', function($position) {
-                            if (Auth::check() && Auth::user()->isAdmin()) {
-                                return view('positions.action_buttons', compact('position'))->render();
-                            }
+                    ->addColumn('action', function ($position) {
+                        if (Auth::check() && Auth::user()->isAdmin()) {
+                            return view('positions.action_buttons', compact('position'))->render();
+                        }
                     })
                     ->rawColumns(['action', 'position_name'])
                     ->make(true);

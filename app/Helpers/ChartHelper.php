@@ -48,10 +48,10 @@ class ChartHelper
     {
         $colors = [];
         for ($i = 0; $i < $count; $i++) {
-          $colors[] = self::BACKGROUND_COLORS[rand(0, 20)];
+            $colors[] = self::BACKGROUND_COLORS[rand(0, 20)];
         }
-          return $colors;
-      }
+            return $colors;
+    }
 
     public static function getBarChart($inputDates, string $name, $chartData)
     {

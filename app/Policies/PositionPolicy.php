@@ -67,28 +67,4 @@ class PositionPolicy
     {
         return $user->isAdmin();
     }
-
-    /**
-     * Determine whether the user can restore the position.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Position  $position
-     * @return mixed
-     */
-    public function restore(User $user, Position $position)
-    {
-        return false;
-    }
-
-    /**
-     * Determine whether the user can permanently delete the position.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Position  $position
-     * @return mixed
-     */
-    public function forceDelete(User $user, Position $position)
-    {
-        return false;
-    }
 }

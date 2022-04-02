@@ -27,6 +27,9 @@ class UserControllerTest extends TestCase
     {
         $response = $this->get(route('users.index'));
         $response->assertOk();
+        $response = $this->actingAs($this->user)
+            ->get(route('users.index'));
+        $response->assertSee($this->user->first_name);
     }
 
     /**

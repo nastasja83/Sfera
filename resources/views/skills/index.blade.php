@@ -6,43 +6,39 @@
     <div class="row justify-content-center">
         <div class="col-10">
             <h1 class="mb-3 mt-3">{{ __('skills.Skills') }}</h1>
-            <div class="mb-3 mt-3">
-            @if(Auth::check() && Auth::user()->isAdmin())
-            <a href="{{ route('skills.create') }}" class="btn btn-primary ml-auto">{{ __('skills.Create skill') }}</a>
-            @endif
-            </div>
             <div class="row mb-3">
-                <div class="col col-4 align-self-start">
-                    <form>
-                        <div class="form-row">
-                            <div class="col">
-                                <select data-column="1" class="form-control filter-select">
-                                    <option value="">{{ __('skills.Select skill') }}</option>
-                                    @foreach ($skills as $skill_name)
-                                    <option value="{{ $skill_name }}">{{ $skill_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                <form>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <select data-column="1" class="form-control filter-select">
+                                <option value="">{{ __('skills.Select skill') }}</option>
+                                @foreach ($skills as $skill_name)
+                                <option value="{{ $skill_name }}">{{ $skill_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group">
+                            @if(Auth::check() && Auth::user()->isAdmin())
+                            <a href="{{ route('skills.create') }}" class="btn btn-primary ml-3">{{ __('skills.Create skill') }}</a>
+                            @endif
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="row">
-                <div class="col">
-                    <div class="table-responsive">
-                        <table class="table table-bordered data-table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">{{ __('skills.Skills') }}</th>
-                                    <th scope="col">{{ __('skills.Creating date') }}</th>
-                                    <th scope="col" width="120" class="text-center text-nowrap">{{ __('skills.Actions') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered data-table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">{{ __('skills.Skills') }}</th>
+                                <th scope="col">{{ __('skills.Creating date') }}</th>
+                                <th scope="col" width="120" class="text-center text-nowrap">{{ __('skills.Actions') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -55,7 +51,7 @@
 
 <script type="text/javascript">
 
-    let logined = "{{ Auth::check() }}";
+let admin = "{{Auth::check() && Auth::user()->isAdmin() }}";
 
   $(document).ready(function () {
 
@@ -75,8 +71,8 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false,},
             {data: 'skill_name', name: 'skill_name'},
-            {data: 'created_at', name: 'created_at', visible: logined},
-            {data: 'action', name: 'action', orderable: false, searchable: false, sClass:'text-center text-nowrap', visible: logined},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'action', name: 'action', orderable: false, searchable: false, sClass:'text-center text-nowrap', visible: admin},
         ]
     });
 

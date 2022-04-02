@@ -1,8 +1,8 @@
 
 ### Hexlet tests and linter status:
 [![Github Actions Status](https://github.com/nastasja83/Sfera/workflows/PHP%20CI/badge.svg)](https://github.com/nastasja83/Sfera/actions)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c760d30ac6b9e9044a5c/maintainability)](https://codeclimate.com/github/nastasja83/Sfera/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/c760d30ac6b9e9044a5c/test_coverage)](https://codeclimate.com/github/nastasja83/Sfera/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8262958203a00a5fa714/maintainability)](https://codeclimate.com/github/nastasja83/Sfera/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8262958203a00a5fa714/test_coverage)](https://codeclimate.com/github/nastasja83/Sfera/test_coverage)
 ## [Сфера - современный сервис для поиска работы и персонала](https://sfera-rabota.ru/%D0%BE-%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B5)
 
 # Тестовое задание.

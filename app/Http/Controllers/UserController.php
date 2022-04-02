@@ -111,7 +111,7 @@ class UserController extends Controller
         ], $messages = [
             'unique' => __('validation.The task name has already been taken'),
             'max' => __('validation.The name should be no more than :max characters'),
-            'size' => __('validation.The phone should contain 12 characters and begin with +7'),
+            'regex' => __('validation.The phone should contain 12 characters and begin with +7'),
         ]);
 
         $userChange = collect($data)->diffAssoc($user)->only('position_id', 'is_admin');

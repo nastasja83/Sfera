@@ -7,31 +7,28 @@
         <div class="col-10">
             <h1 class="mb-3 mt-3">{{ __('users.Employees') }}</h1>
             <div class="row mb-3">
-                <div class="col col-4 align-self-start">
-                    <form>
-                        <div class="form-row">
-                            <div class="col">
-                                <select data-column="4" class="form-control filter-select">
-                                    <option value="">{{ __('positions.Select position') }}</option>
-                                    @foreach ($position_names as $position_name)
-                                    <option value="{{ $position_name }}">{{ $position_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col">
-                                <select data-column="5" class="form-control filter-select">
-                                    <option value="">{{ __('skills.Select skill') }}</option>
-                                    @foreach ($skill_names as $skill_name)
-                                    <option value="{{ $skill_name }}">{{ $skill_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                <form>
+                    <div class="form-row">
+                        <div class="col">
+                            <select data-column="4" class="form-control filter-select">
+                                <option value="">{{ __('positions.Select position') }}</option>
+                                @foreach ($position_names as $position_name)
+                                <option value="{{ $position_name }}">{{ $position_name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                    </form>
-                </div>
+                        <div class="col">
+                            <select data-column="5" class="form-control filter-select">
+                                <option value="">{{ __('skills.Select skill') }}</option>
+                                @foreach ($skill_names as $skill_name)
+                                <option value="{{ $skill_name }}">{{ $skill_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="row">
-                <div class="col">
                     <div class="table-responsive">
                         <table class="table table-bordered data-table table-hover">
                             <thead>
@@ -53,7 +50,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
         </div>
     </div>

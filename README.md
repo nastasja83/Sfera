@@ -55,6 +55,11 @@ a. Название
 сотрудников в каждой должности, количество сотрудников, обладающих
 конкретным навыком)
 ### Demo on Heroku
+
+https://sfera-test.herokuapp.com/
+
+login: admin@example.com
+password: adminadmin
 ### Requirements
 
   * PHP ^7.1.0

@@ -34,6 +34,11 @@ return [
     */
 
     'channels' => [
+        'mailer' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/mailer.log'),
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['daily'],

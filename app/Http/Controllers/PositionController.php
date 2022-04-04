@@ -101,7 +101,7 @@ class PositionController extends Controller
         $position->fill($positionInputData);
         $position->save();
 
-        flash(__('positionss.Position has been updated successfully'))->success();
+        flash(__('positions.Position has been updated successfully'))->success();
         return redirect()
             ->route('positions.index');
     }

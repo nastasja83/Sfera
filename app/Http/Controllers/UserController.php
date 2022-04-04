@@ -93,10 +93,9 @@ class UserController extends Controller
             'position_id' => 'nullable|integer',
             'skills' => 'nullable|array|max:5',
             'is_admin' => 'boolean|nullable',
-            'phone' => 'required|regex:/^((\+79)[0-9]{9})?$/|size:12|unique:users,phone' . $user->id,
-            'email' => 'required|email|max:255|unique:users,email' . $user->id,
+            'phone' => 'required|regex:/^((\+79)[0-9]{9})?$/|size:12|unique:users,phone,' . $user->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
         ], $messages = [
-            'unique' => __('validation.The task name has already been taken'),
             'max' => __('validation.The name should be no more than :max characters'),
             'regex' => __('validation.The phone should contain 12 characters and begin with +7'),
         ]);

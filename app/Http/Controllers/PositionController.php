@@ -92,7 +92,7 @@ class PositionController extends Controller
     public function update(Request $request, Position $position)
     {
         $positionInputData = $this->validate($request, [
-            'position_name' => 'required|max:255|unique:positions,name,' . $position->id,
+            'position_name' => 'required|max:255|unique:positions,position_name,' . $position->id,
         ], $messages = [
             'unique' => __('validation.The position name has already been taken'),
             'max' => __('validation.The name should be no more than :max characters'),

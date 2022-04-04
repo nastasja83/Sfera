@@ -92,7 +92,7 @@ class SkillController extends Controller
     public function update(Request $request, Skill $skill)
     {
         $skillInputData = $this->validate($request, [
-            'skill_name' => 'required|max:255|unique:skills,name,' . $skill->id,
+            'skill_name' => 'required|max:255|unique:skills,skill_name,' . $skill->id,
         ], $messages = [
             'unique' => __('validation.The skill name has already been taken'),
             'max' => __('validation.The name should be no more than :max characters'),
